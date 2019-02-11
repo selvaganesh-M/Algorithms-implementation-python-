@@ -21,7 +21,7 @@ def weight_inputs(n):
     if(len(weights)!=n):
         print("number of weights doesnt match")
         weights = weight_inputs(n)
-    return weights
+    return [float(i) for i in weights]
     
 
 def graph_input():
@@ -39,21 +39,40 @@ def graph_input():
             graph[parent] = pair
         
     return graph
-        
+    
+load_from_file = input("Read graph from file (Y/n) : ")
+if load_from_file.lower() == 'y':
+    path = input("Enter path with file name : ")
+    
+    file = open(path, 'r')
+    data = [[j for j in i.split('\n')] for i in file.read().split('\n\n')]
+    file.close()
+    
+    graph = {}
+    for i in data:
+        nodes = [node for node in i[1].split()]
+        weights = [float(wh) for wh in i[2].split()] 
+        graph[i[0]] = [(nodes[k],weights[k]) for k in range(len(nodes))]
+    
 
-graph ={  's': [('a', '7'), ('b', '2'), ('c', '3')],\
-          'a': [('s', '7'), ('b', '3'), ('d', '4')],\
-          'b': [('s', '2'), ('a', '3'), ('h', '4')],\
-          'c': [('s', '3'), ('l', '2')],\
-          'd': [('a', '4'), ('b', '4'), ('h', '1'), ('f', '6')],\
-          'f': [('d', '6'), ('h', '3')],\
-          'g': [('h', '2'), ('e', '2')],\
-          'h': [('f', '3'), ('d', '1'), ('b', '1'), ('g', '2')],\
-          'e': [('g', '2'), ('k', '5')],\
-          'l': [('c', '2'), ('i', '4'), ('j', '4')],\
-          'i': [('l', '4'), ('j', '6'), ('k', '4')],\
-          'j': [('l', '4'), ('i', '6'), ('k', '4')],\
-          'k': [('i', '4'), ('j', '4'), ('e', '5')]}
+else:
+    graph = graph_input()
+
+
+# graph ={  's': [('a', '7'), ('b', '2'), ('c', '3')],\
+#           'a': [('s', '7'), ('b', '3'), ('d', '4')],\
+#           'b': [('s', '2'), ('a', '3'), ('h', '4')],\
+#           'c': [('s', '3'), ('l', '2')],\
+#           'd': [('a', '4'), ('b', '4'), ('h', '1'), ('f', '6')],\
+#           'f': [('d', '6'), ('h', '3')],\
+#           'g': [('h', '2'), ('e', '2')],\
+#           'h': [('f', '3'), ('d', '1'), ('b', '1'), ('g', '2')],\
+#           'e': [('g', '2'), ('k', '5')],\
+#           'l': [('c', '2'), ('i', '4'), ('j', '4')],\
+#           'i': [('l', '4'), ('j', '6'), ('k', '4')],\
+#           'j': [('l', '4'), ('i', '6'), ('k', '4')],\
+#           'k': [('i', '4'), ('j', '4'), ('e', '5')]}
+
 
 class graph_analysis:
     
@@ -65,6 +84,7 @@ class graph_analysis:
         self.paths_analysed_from = []
 
         self.analysed_start_nodes = []        
+        
         
     def analyse(self, start):
         
@@ -138,12 +158,36 @@ class graph_analysis:
             
         self.paths_analysed_from.append([start,details_list])
         return self.paths_analysed_from[-1]
+    
+    def find_path(self, start, end):
+        if start in self.analysed_start_nodes:
+            for i in self.paths_analysed_from:
+                if i[0]==start:
+                    details = i[1]
+                    break
+            
+            path_trace = end
+            distance = 0
+            while path_trace[-1]!=start:
+                current_trace = path_trace[-1]
+                for i in details:
+                    if i[0] == current_trace:
+                        path_trace += i[1]
+                        distance += i[2]
+            
+            return '-'.join(path_trace[-1::-1]),distance
+            
+            
+            
+        else:
+            print("The start point has not been initialised and analysed")
         
     
 
 object = graph_analysis(graph)
 
 s = object.analyse("s")
+trace, distance = object.find_path('s', 'e')
 
 a = object.analyse("a")
 

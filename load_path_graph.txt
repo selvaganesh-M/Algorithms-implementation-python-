@@ -1,0 +1,51 @@
+a
+s b d
+7 3 4
+
+b
+s a h
+2 3 4
+
+c
+s l
+3 2
+
+d
+a b f h
+4 4 1 6
+
+e
+g k
+2 5
+
+f
+d h
+6 3
+
+g
+h e
+2 2
+
+h
+f d b g
+3 1 1 2
+
+i
+l j k
+4 6 4
+
+j
+l i k
+4 6 4
+
+k
+i j e
+4 4 5
+
+l
+c i j
+2 4 4
+
+s
+a b c
+7 2 3
