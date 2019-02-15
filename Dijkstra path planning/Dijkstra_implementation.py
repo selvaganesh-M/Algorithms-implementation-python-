@@ -186,39 +186,7 @@ class graph_analysis:
 
 object = graph_analysis(graph)
 
-s = object.analyse("s")
-trace, distance = object.find_path('s', 'e')
-
-a = object.analyse("a")
-
-b = object.analyse("b")
-
-c = object.analyse("c")
-
-d = object.analyse("d")
-
-e = object.analyse("e")
-
-f = object.analyse("f")
-
-g = object.analyse("g")
-
-h = object.analyse("h")
-
-i = object.analyse("i")
-
-j = object.analyse("j")
-
-k = object.analyse("k")
-
-l = object.analyse("l")
-
-
-
-
-
-
-
-
+s = object.analyse("k")
+trace, distance = object.find_path('k', 'a')
 
 
