@@ -183,4 +183,4 @@ class a_star:
     
 obj = a_star(graph)
 
-dist, trace, details = obj.analyse('k','j')
+dist, trace, details = obj.analyse('p','g')
