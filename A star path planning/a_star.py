@@ -6,6 +6,11 @@ Created on Fri Feb 15 21:10:20 2019
 """
 
 import math
+import numpy as np
+import pylab as pl
+from matplotlib import collections as mc
+
+
 
 def nodes_input():
     nodes = input("Enter parent and connected nodes : ")
@@ -183,4 +188,4 @@ class a_star:
     
 obj = a_star(graph)
 
-dist, trace, details = obj.analyse('q','b')
+dist, trace, details = obj.analyse('j','d')
